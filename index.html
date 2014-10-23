@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Network Check Tools</title>
+		<meta name="description" content="Web Interfaces to the common Tools of a Network Administrator">
+		<meta name="author" content="Andri Steiner">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css">
+		<style media="screen" type="text/css">
+			body { padding-top: 70px; }
+			a, .icon-wrench, .icon-arrow-up { color: #C30; }
+			a:hover { text-decoration: none; }
+			.navbar-default { border-bottom: 2px solid #C30; }
+			.navbar-default .navbar-nav > .active > a,
+			.navbar-default .navbar-nav > .active > a:hover,
+			.navbar-default .navbar-nav > .active > a:focus { color: #FFF; background-color: #C30; }
+			.page-header { padding-top: 3em; border-bottom: 1px solid #C30; }
+			section#dns .page-header { padding-top: 0; margin-top: 0; }
+			div.footer { margin-top: 1em; padding-top: .5em; background-color: #f8f8f8; border-top: 2px solid #C30; }
+			div.footer a { color: #000; } 
+			h4 { margin-top: 3em; }
+			div.result pre { display: none; }
+			div.result i { display: none; }
+		</style>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$.get('api/remoteAddress.php', function(remoteAddress) {
+					$('#getDnsName').val(remoteAddress);
+				});
+			});
+
+			function dnsLookup(name, type, server) {
+				$('div#dnsResult pre').hide();
+				$('div#dnsResult i').show();
+				$.ajax({
+					url: 'api/dig.php',
+					data: ({name: name, type: type, server: server}),
+					success: function(data) {
+						$('div#dnsResult i').hide();
+						$('div#dnsResult pre').html(data);
+						$('div#dnsResult pre').show();
+					}
+				});
+			}
+		</script>
+	</head>
+	<body data-spy="scroll">
+
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><i class="icon-wrench"></i> Network Check Tools</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="#dns">DNS Lookup</a></li>
+						<li><a href="#password">Password Generator</a></li>
+						<li><a href="#whois">Whois</a></li>
+						<li><a href="#ping">Ping</a></li>
+						<li><a href="#traceroute">Traceroute</a></li>
+						<li><a href="#timestamp">Timestamp</a></li>
+						<li><a href="#ipaddress">IP Address</a></li>
+						<li><a href="#footer">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10">
+
+					<div class="jumbotron">
+						<h1>Network Check Tools</h1>
+						<p>Here you will find Web Interfaces to the common Tools of a Network Administrator.</p>
+					</div>
+
+					<section id="dns">
+						<div class="page-header">
+							<h2>DNS Lookup</h2>
+						</div>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="text" class="form-control" id="dnsServer" placeholder="Server (leave empty to use default Resolver)">
+								</div>
+								<div class="input-group">
+									<input type="text" class="form-control" id="dnsName" placeholder="Name to lookup">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Lookup <span class="caret"></span></button>
+										<ul class="dropdown-menu dropdown-menu-right" role="menu">
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">ANY</a></li>
+											<li><a href="">A</a></li>
+											<li><a href="">AAAA</a></li>
+											<li><a href="">MX</a></li>
+											<li><a href="">NS</a></li>
+											<li><a href="">SOA</a></li>
+											<li><a href="">TXT</a></li>
+										</ul>
+									</div>
+								</div>
+								<script type="text/javascript">
+								</script>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="dnsResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
+							</div>
+						</div>
+						<h4>reverse DNS</h4>
+						<div class="row">
+							<div class="col-lg-6">
+								<p>bla bla</p>
+							</div>
+							<div class="col-lg-6">
+								<pre class="code" id="reverseDnsResult">&nbsp;</pre>
+							</div>
+						</div>
+					</section>
+
+					<section id="whois">
+						<div class="page-header">
+							<h1>Whois</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+
+					<section id="password">
+						<div class="page-header">
+							<h1>Password Generator</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+
+					<section id="ping">
+						<div class="page-header">
+							<h1>Ping</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+
+					<section id="traceroute">
+						<div class="page-header">
+							<h1>Traceroute</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+
+					<section id="timestamp">
+						<div class="page-header">
+							<h1>Timestamp</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+
+					<section id="ipaddress">
+						<div class="page-header">
+							<h1>IP Address</h1>
+						</div>
+						<p>Bla bla</p>
+					</section>
+				</div>
+				<div class="col-lg-2">
+					<div class="affix">
+						TODO: Activate AdSense Code
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer" id="contact">
+			<div class="container">
+				<footer id="footer">
+					<p class="pull-right">
+						<a href="https://twitter.com/andristeiner"><i class="icon-twitter icon-2x"></i></a>
+						<a href="https://github.com/andristeiner/checktools"><i class="icon-github icon-2x"></i></a>
+						<a href="#"><i class="icon-arrow-up icon-2x"></i></a>
+					</p>
+					<p>&copy; 2014 Andri Steiner</p>
+				</footer>
+			</div>
+		</div>
+
+	</body>
+</html>
