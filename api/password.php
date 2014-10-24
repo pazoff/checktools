@@ -56,7 +56,7 @@ for($charCounter=0; $charCounter < $_GET['length']; $charCounter++) {
 	// calculate Hashed Versions
 $passwords = array(
 	'passwordClear'	=> $passwordClear,
-	'passwordHash'	=> 'TODO ACTIVATE & TEST', #password_hash($passwordClear, PASSWORD_BCRYPT);
+	'passwordHash'	=> crypt($passwordClear, base64_encode($passwordClear)),
 	'passwordMd5'	=> md5($passwordClear),
 );
 
