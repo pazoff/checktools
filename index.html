@@ -184,7 +184,6 @@
 									<label for="passwordLength">Length</label>
 									<select class="form-control" id="passwordLength">
 										<option>8</option>
-										<option>12</option>
 										<option>16</option>
 										<option>32</option>
 										<option>64</option>
@@ -193,22 +192,22 @@
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="passwordUpperCase" /> use upper Case
+										<input type="checkbox" id="passwordUpperCase" checked="checked" /> use upper Case
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="passwordLowerCase" /> use lower Case
+										<input type="checkbox" id="passwordLowerCase" checked="checked" /> use lower Case
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="passwordDigits" /> use Digits
+										<input type="checkbox" id="passwordDigits" checked="checked" /> use Digits
 									</label>
 								</div>
 								<div class="checkbox">
 									<label>
-										<input type="checkbox" id="passwordSpecialChars" /> use special Characters
+										<input type="checkbox" id="passwordSpecialChars" checked="checked" /> use special Characters
 									</label>
 								</div>
 								<button type="submit" class="btn" onclick="generatePassword($('#passwordLength').val(), $('#passwordUpperCase:checked').val(), $('#passwordLowerCase:checked').val(), $('#passwordDigits:checked').val(), $('#passwordSpecialChars:checked').val());">Generate</button>
