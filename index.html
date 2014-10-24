@@ -105,7 +105,7 @@
 									<input type="text" class="form-control" id="dnsServer" placeholder="Server (leave empty to use default Resolver)">
 								</div>
 								<div class="input-group">
-									<input type="text" class="form-control" id="dnsName" onkeydown="if (event.keyCode == 13) dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">
+									<input type="text" class="form-control" id="dnsName" placeholder="Name to Lookup" onkeydown="if (event.keyCode == 13) dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Lookup <span class="caret"></span></button>
 										<ul class="dropdown-menu dropdown-menu-right" role="menu">
