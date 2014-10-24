@@ -91,22 +91,20 @@
 									<input type="text" class="form-control" id="dnsServer" placeholder="Server (leave empty to use default Resolver)">
 								</div>
 								<div class="input-group">
-									<input type="text" class="form-control" id="dnsName" placeholder="Name to lookup">
+									<input type="text" class="form-control" id="dnsName" placeholder="Name to lookup" onkeydown="if (event.keyCode == 13) dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Lookup <span class="caret"></span></button>
 										<ul class="dropdown-menu dropdown-menu-right" role="menu">
 											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">ANY</a></li>
-											<li><a href="">A</a></li>
-											<li><a href="">AAAA</a></li>
-											<li><a href="">MX</a></li>
-											<li><a href="">NS</a></li>
-											<li><a href="">SOA</a></li>
-											<li><a href="">TXT</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'A', $('#dnsServer').val());">A</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'AAAA', $('#dnsServer').val());">AAAA</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'MX', $('#dnsServer').val());">MX</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'NS', $('#dnsServer').val());">NS</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'SOA', $('#dnsServer').val());">SOA</a></li>
+											<li><a href="javascript:void(0)" onclick="dnsLookup($('#dnsName').val(), 'TXT', $('#dnsServer').val());">TXT</a></li>
 										</ul>
 									</div>
 								</div>
-								<script type="text/javascript">
-								</script>
 							</div>
 							<div class="col-lg-6">
 								<div class="result" id="dnsResult">
