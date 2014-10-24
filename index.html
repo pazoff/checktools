@@ -31,6 +31,8 @@
 			$(function() {
 				$.get('api/remoteAddress.php', function(remoteAddress) {
 					$('#reverseDnsAddress').attr('placeholder', remoteAddress);
+					$('#pingName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
+					$('#tracerouteName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
 				});
 			});
 
@@ -86,6 +88,20 @@
 						$('div#pingResult i').hide();
 						$('div#pingResult pre').html(data);
 						$('div#pingResult pre').show();
+					}
+				});
+			}
+
+			function traceroute(name) {
+				$('div#tracerouteResult pre').hide();
+				$('div#tracerouteResult i').show();
+				$.ajax({
+					url: 'api/traceroute.php',
+					data: ({name: name}),
+					success: function(data) {
+						$('div#tracerouteResult i').hide();
+						$('div#tracerouteResult pre').html(data);
+						$('div#tracerouteResult pre').show();
 					}
 				});
 			}
@@ -210,9 +226,9 @@
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="input-group">
-									<input type="text" class="form-control" id="pingName" placeholder="Ping Target" onkeydown="if (event.keyCode == 13) ping($('#pingName').val());">
+									<input type="text" class="form-control" id="pingName" onkeydown="if (event.keyCode == 13) ping($('#pingName').val());">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="ping($('#wpingName').val());">Ping</button>
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="ping($('#pingName').val());">Ping</button>
 									</div>
 								</div>
 							</div>
@@ -229,7 +245,22 @@
 						<div class="page-header">
 							<h1>Traceroute</h1>
 						</div>
-						<p>Bla bla</p>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="tracerouteName" onkeydown="if (event.keyCode == 13) traceroute($('#tracerouteName').val());">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="traceroute($('#tracerouteName').val());">Traceroute</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="tracerouteResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
+							</div>
+						</div>
 					</section>
 
 					<section id="timestamp">
