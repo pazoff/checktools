@@ -33,6 +33,7 @@
 					$('#reverseDnsAddress').attr('placeholder', remoteAddress);
 					$('#pingName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
 					$('#tracerouteName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
+					$('#timestampName').attr('placeholder', 'Timestamp, now is ' + Math.round(+new Date()/1000));
 				});
 			});
 
@@ -102,6 +103,20 @@
 						$('div#tracerouteResult i').hide();
 						$('div#tracerouteResult pre').html(data);
 						$('div#tracerouteResult pre').show();
+					}
+				});
+			}
+
+			function timestamp(timestamp) {
+				$('div#timestampResult pre').hide();
+				$('div#timestampResult i').show();
+				$.ajax({
+					url: 'api/timestamp.php',
+					data: ({timestamp: timestamp}),
+					success: function(data) {
+						$('div#timestampResult i').hide();
+						$('div#timestampResult pre').html(data);
+						$('div#timestampResult pre').show();
 					}
 				});
 			}
@@ -267,7 +282,23 @@
 						<div class="page-header">
 							<h1>Timestamp</h1>
 						</div>
-						<p>Bla bla</p>
+						<h4>Timestamp to RFC1123 formatted Date</h4>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="timestampName" onkeydown="if (event.keyCode == 13) timestamp($('#timestampName').val());">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="timestamp($('#timestampName').val());">Traceroute</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="timestampResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
+							</div>
+						</div>
 					</section>
 
 					<section id="ipaddress">
