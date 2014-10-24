@@ -30,7 +30,7 @@
 		<script type="text/javascript">
 			$(function() {
 				$.get('api/remoteAddress.php', function(remoteAddress) {
-					$('#getDnsName').val(remoteAddress);
+					$('#reverseDnsAddress').attr('placeholder', remoteAddress);
 				});
 			});
 
@@ -44,6 +44,20 @@
 						$('div#dnsResult i').hide();
 						$('div#dnsResult pre').html(data);
 						$('div#dnsResult pre').show();
+					}
+				});
+			}
+
+			function reverseDnsLookup(ipaddress) {
+				$('div#reverseDnsResult pre').hide();
+				$('div#reverseDnsResult i').show();
+				$.ajax({
+					url: 'api/reverseDns.php',
+					data: ({ipaddress: ipaddress}),
+					success: function(data) {
+						$('div#reverseDnsResult i').hide();
+						$('div#reverseDnsResult pre').html(data);
+						$('div#reverseDnsResult pre').show();
 					}
 				});
 			}
@@ -91,7 +105,7 @@
 									<input type="text" class="form-control" id="dnsServer" placeholder="Server (leave empty to use default Resolver)">
 								</div>
 								<div class="input-group">
-									<input type="text" class="form-control" id="dnsName" placeholder="Name to lookup" onkeydown="if (event.keyCode == 13) dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">
+									<input type="text" class="form-control" id="dnsName" onkeydown="if (event.keyCode == 13) dnsLookup($('#dnsName').val(), 'ANY', $('#dnsServer').val());">
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Lookup <span class="caret"></span></button>
 										<ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -116,10 +130,18 @@
 						<h4>reverse DNS</h4>
 						<div class="row">
 							<div class="col-lg-6">
-								<p>bla bla</p>
+								<div class="input-group">
+									<input type="text" class="form-control" id="reverseDnsAddress" placeholder="IP Address to lookup" onkeydown="if (event.keyCode == 13) reverseDnsLookup($('#reverseDnsAddress').val());">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="reverseDnsLookup($('#reverseDnsAddress').val());">Lookup</button>
+									</div>
+								</div>
 							</div>
 							<div class="col-lg-6">
-								<pre class="code" id="reverseDnsResult">&nbsp;</pre>
+								<div class="result" id="reverseDnsResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
 							</div>
 						</div>
 					</section>
