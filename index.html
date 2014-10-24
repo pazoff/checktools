@@ -61,6 +61,20 @@
 					}
 				});
 			}
+
+			function whoisLookup(name) {
+				$('div#whoisResult pre').hide();
+				$('div#whoisResult i').show();
+				$.ajax({
+					url: 'api/whois.php',
+					data: ({name: name}),
+					success: function(data) {
+						$('div#whoisResult i').hide();
+						$('div#whoisResult pre').html(data);
+						$('div#whoisResult pre').show();
+					}
+				});
+			}
 		</script>
 	</head>
 	<body data-spy="scroll">
@@ -150,7 +164,22 @@
 						<div class="page-header">
 							<h1>Whois</h1>
 						</div>
-						<p>Bla bla</p>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="whoisName" placeholder="Domain Name, IP Address or AS Number" onkeydown="if (event.keyCode == 13) whoisLookup($('#whoisName').val());">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="whoisLookup($('#whoisName').val());">Lookup</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="whoisResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
+							</div>
+						</div>
 					</section>
 
 					<section id="password">
