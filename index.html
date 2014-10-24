@@ -34,7 +34,13 @@
 					$('#pingName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
 					$('#tracerouteName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
 					$('#timestampName').attr('placeholder', 'Timestamp, now is ' + Math.round(+new Date()/1000));
+					$('.myIPAddress').append(remoteAddress);
+					$('.myReverseDnsName').append(reverseDnsLookup(remoteAddress));
 				});
+				$('.myUserAgent').append(navigator.userAgent);
+				$('.myReferrer').append(document.referrer);
+				$('.myScreenResolution').append(screen.width + 'px ' + screen.height + 'px');
+				$('.myWindowSize').append(window.outerWidth + 'px ' + window.outerHeight + 'px');
 			});
 
 			function dnsLookup(name, type, server) {
@@ -137,7 +143,7 @@
 						<li><a href="#ping">Ping</a></li>
 						<li><a href="#traceroute">Traceroute</a></li>
 						<li><a href="#timestamp">Timestamp</a></li>
-						<li><a href="#ipaddress">IP Address</a></li>
+						<li><a href="#clientinfo">Client Info</a></li>
 						<li><a href="#footer">Contact</a></li>
 					</ul>
 				</div>
@@ -301,11 +307,36 @@
 						</div>
 					</section>
 
-					<section id="ipaddress">
+					<section id="clientinfo">
 						<div class="page-header">
-							<h1>IP Address</h1>
+							<h1>Client Info</h1>
 						</div>
-						<p>Bla bla</p>
+						<table class="table">
+							<tr>
+								<th>IP Address</th>
+								<td class="myIPAddress"></td>
+							</tr>
+							<tr>
+								<th>reverse DNS Name</th>
+								<td class="myReverseDnsName"></td>
+							</tr>
+							<tr>
+								<th>User Agent</th>
+								<td class="myUserAgent"></td>
+							</tr>
+							<tr>
+								<th>Referrer</th>
+								<td class="myReferrer"></td>
+							</tr>
+							<tr>
+								<th>Screen Resolution</th>
+								<td class="myScreenResolution"></td>
+							</tr>
+							<tr>
+								<th>Browser Window Size</th>
+								<td class="myWindowSize"></td>
+							</tr>
+						</table>
 					</section>
 				</div>
 				<div class="col-lg-2">
