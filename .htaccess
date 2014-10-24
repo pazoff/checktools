@@ -1,5 +1,13 @@
 <IfModule mod_rewrite.c>
         RewriteEngine On
+
+	# remove www.
 	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-	RewriteRule ^ http%2://%1%{REQUEST_URI} [L,R=301]        
+	RewriteRule ^ http%2://%1%{REQUEST_URI} [L,R=301]
+
+	# rewrite everything to / that does not exist
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+	RewriteRule .* / [L,R=301]
 </IfModule>
