@@ -75,6 +75,20 @@
 					}
 				});
 			}
+
+			function ping(name) {
+				$('div#pingResult pre').hide();
+				$('div#pingResult i').show();
+				$.ajax({
+					url: 'api/ping.php',
+					data: ({name: name}),
+					success: function(data) {
+						$('div#pingResult i').hide();
+						$('div#pingResult pre').html(data);
+						$('div#pingResult pre').show();
+					}
+				});
+			}
 		</script>
 	</head>
 	<body data-spy="scroll">
@@ -193,7 +207,22 @@
 						<div class="page-header">
 							<h1>Ping</h1>
 						</div>
-						<p>Bla bla</p>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="input-group">
+									<input type="text" class="form-control" id="pingName" placeholder="Ping Target" onkeydown="if (event.keyCode == 13) ping($('#pingName').val());">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" onclick="ping($('#wpingName').val());">Ping</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="pingResult">
+									<pre>&nbsp;</pre>
+									<i class="icon-refresh icon-spin icon-large"></i>
+								</div>
+							</div>
+						</div>
 					</section>
 
 					<section id="traceroute">
