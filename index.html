@@ -34,7 +34,9 @@
 					$('#tracerouteName').attr('placeholder', 'Target, e.g. your IP Address: ' + remoteAddress);
 					$('#timestampName').attr('placeholder', 'Timestamp, now is ' + Math.round(+new Date()/1000));
 					$('.myIPAddress').append(remoteAddress);
-					$('.myReverseDnsName').append(reverseDnsLookup(remoteAddress));
+					$.get('api/reverseDns.php', { ipaddress: remoteAddress }).done(function(remoteAddress) {
+						$('.myReverseDnsName').append(remoteAddress);
+					});
 				});
 				$('.myUserAgent').append(navigator.userAgent);
 				$('.myReferrer').append(document.referrer);
