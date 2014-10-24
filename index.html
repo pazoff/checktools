@@ -22,8 +22,7 @@
 			div.footer { margin-top: 1em; padding-top: .5em; background-color: #f8f8f8; border-top: 2px solid #C30; }
 			div.footer a { color: #000; } 
 			h4 { margin-top: 3em; }
-			div.result pre { display: none; }
-			div.result i { display: none; }
+			div.result { display: none; }
 		</style>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -43,9 +42,24 @@
 				$('.myWindowSize').append(window.outerWidth + 'px ' + window.outerHeight + 'px');
 			});
 
+			function generatePassword(length, upperCase, lowerCase, digits, specialChars) {
+				$('div#passwordResult').hide();
+				$.ajax({
+					dataType: 'json',
+					url: 'api/password.php',
+					data: ({length: length, upperCase: upperCase, lowerCase: lowerCase, digits: digits, specialChars: specialChars}),
+					success: function(data) {
+						$('div#passwordResult pre#passwordClear').html(data['passwordClear']);
+						$('div#passwordResult pre#passwordHash').html(data['passwordHash']);
+						$('div#passwordResult pre#passwordMd5').html(data['passwordMd5']);
+						$('div#passwordResult').show();
+					}
+				});
+			}
+
 			function dnsLookup(name, type, server) {
 				$('div#dnsResult pre').hide();
-				$('div#dnsResult i').show();
+				$('div#dnsResult').show();
 				$.ajax({
 					url: 'api/dig.php',
 					data: ({name: name, type: type, server: server}),
@@ -59,7 +73,7 @@
 
 			function reverseDnsLookup(ipaddress) {
 				$('div#reverseDnsResult pre').hide();
-				$('div#reverseDnsResult i').show();
+				$('div#reverseDnsResult').show();
 				$.ajax({
 					url: 'api/reverseDns.php',
 					data: ({ipaddress: ipaddress}),
@@ -73,7 +87,7 @@
 
 			function whoisLookup(name) {
 				$('div#whoisResult pre').hide();
-				$('div#whoisResult i').show();
+				$('div#whoisResult').show();
 				$.ajax({
 					url: 'api/whois.php',
 					data: ({name: name}),
@@ -87,7 +101,7 @@
 
 			function ping(name) {
 				$('div#pingResult pre').hide();
-				$('div#pingResult i').show();
+				$('div#pingResult').show();
 				$.ajax({
 					url: 'api/ping.php',
 					data: ({name: name}),
@@ -101,7 +115,7 @@
 
 			function traceroute(name) {
 				$('div#tracerouteResult pre').hide();
-				$('div#tracerouteResult i').show();
+				$('div#tracerouteResult').show();
 				$.ajax({
 					url: 'api/traceroute.php',
 					data: ({name: name}),
@@ -115,7 +129,7 @@
 
 			function timestamp(timestamp) {
 				$('div#timestampResult pre').hide();
-				$('div#timestampResult i').show();
+				$('div#timestampResult').show();
 				$.ajax({
 					url: 'api/timestamp.php',
 					data: ({timestamp: timestamp}),
@@ -164,7 +178,52 @@
 						<div class="page-header">
 							<h1>Password Generator</h1>
 						</div>
-						<p>TODO</p>
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="passwordLength">Length</label>
+									<select class="form-control" id="passwordLength">
+										<option>8</option>
+										<option>12</option>
+										<option>16</option>
+										<option>32</option>
+										<option>64</option>
+										<option>128</option>
+									</select>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="passwordUpperCase" /> use upper Case
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="passwordLowerCase" /> use lower Case
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="passwordDigits" /> use Digits
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="passwordSpecialChars" /> use special Characters
+									</label>
+								</div>
+								<button type="submit" class="btn" onclick="generatePassword($('#passwordLength').val(), $('#passwordUpperCase:checked').val(), $('#passwordLowerCase:checked').val(), $('#passwordDigits:checked').val(), $('#passwordSpecialChars:checked').val());">Generate</button>
+							</div>
+							<div class="col-lg-6">
+								<div class="result" id="passwordResult">
+									<label>generated Password (Cleartext)</label>
+									<pre id="passwordClear">&nbsp;</pre>
+									<label>hashed Password (Crypt/.htaccess)</label>
+									<pre id="passwordHash">&nbsp;</pre>
+									<label>hashed Password (MD5)</label>
+									<pre id="passwordMd5">&nbsp;</pre>
+								</div>
+							</div>
+						</div>
 					</section>
 
 					<section id="dns">
