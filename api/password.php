@@ -62,8 +62,4 @@ $passwords = array(
 
 	// Output JSON
 echo json_encode($passwords);
-
-	// Log Query
-//TODO ACTIVATE
-//error_log('['.date(DATE_ISO8601).'] '.implode(', ', $_GET).PHP_EOL, 3, dirname($_SERVER['DOCUMENT_ROOT']).'/log/pwgen.log');
 ?>

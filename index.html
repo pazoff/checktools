@@ -58,6 +58,7 @@
 						$('div#passwordResult').show();
 					}
 				});
+				_paq.push(['trackEvent', 'Password']);
 			}
 
 			function dnsLookup(name, type, server) {
@@ -72,6 +73,7 @@
 						$('div#dnsResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'DNS', 'Lookup']);
 			}
 
 			function reverseDnsLookup(ipaddress) {
@@ -86,6 +88,7 @@
 						$('div#reverseDnsResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'DNS', 'reverse']);
 			}
 
 			function whoisLookup(name) {
@@ -100,6 +103,7 @@
 						$('div#whoisResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'Whois']);
 			}
 
 			function ping(name) {
@@ -114,6 +118,7 @@
 						$('div#pingResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'Ping']);
 			}
 
 			function traceroute(name) {
@@ -128,6 +133,7 @@
 						$('div#tracerouteResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'Traceroute']);
 			}
 
 			function timestamp(timestamp) {
@@ -142,6 +148,7 @@
 						$('div#timestampResult pre').show();
 					}
 				});
+				_paq.push(['trackEvent', 'Timestamp']);
 			}
 		</script>
 	</head>
@@ -438,5 +445,20 @@
 			</div>
 		</div>
 
+		<!-- Piwik -->
+		<script type="text/javascript">
+		  var _paq = _paq || [];
+		  _paq.push(['trackPageView']);
+		  _paq.push(['enableLinkTracking']);
+		  (function() {
+		    var u="//statistics.snowflakehosting.ch/";
+		    _paq.push(['setTrackerUrl', u+'piwik.php']);
+		    _paq.push(['setSiteId', 73]);
+		    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+		  })();
+		</script>
+		<noscript><p><img src="//statistics.snowflakehosting.ch/piwik.php?idsite=73" style="border:0;" alt="" /></p></noscript>
+		<!-- End Piwik Code -->
 	</body>
 </html>

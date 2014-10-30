@@ -25,7 +25,4 @@ if(!in_array($_GET['type'], $types)) {
 
 	// Query DNS	
 passthru('/usr/bin/dig '.$_GET['name'].' '.$_GET['type'].' '.$_GET['server'].' 2>&1');
-
-	// Log Query
-error_log('['.date(DATE_ISO8601).'] '.implode(', ', $_GET).PHP_EOL, 3, dirname($_SERVER['DOCUMENT_ROOT']).'/log/dns.log');
 ?>
